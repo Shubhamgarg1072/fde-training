@@ -7,6 +7,7 @@ import { NoteList } from './notes/NoteList.tsx';
 import { NoteEditor } from './notes/NoteEditor.tsx';
 import { PlusIcon } from './components/icons.tsx';
 import { UndoToast } from './components/UndoToast.tsx';
+import { ErrorBoundary } from './components/ErrorBoundary.tsx';
 import styles from './NotesApp.module.css';
 
 export function NotesApp() {
@@ -88,11 +89,31 @@ export function NotesApp() {
 
         <main className={styles.main}>
           {selectedNote ? (
-            <NoteEditor
+            <ErrorBoundary
               key={selectedNote.id}
-              note={selectedNote}
-              onDelete={handleDelete}
-            />
+              fallback={(reset) => (
+                <div className={styles.placeholder} role="alert">
+                  <h2>This note couldn't be opened</h2>
+                  <p>Something went wrong while showing it. Your other notes are fine.</p>
+                  <div className={styles.placeholderActions}>
+                    <button type="button" className="button" onClick={reset}>
+                      Try again
+                    </button>
+                    <button
+                      type="button"
+                      className="button button--ghost"
+                      onClick={() => {
+                        dispatch({ type: 'selected', id: null });
+                      }}
+                    >
+                      Back to all notes
+                    </button>
+                  </div>
+                </div>
+              )}
+            >
+              <NoteEditor note={selectedNote} onDelete={handleDelete} />
+            </ErrorBoundary>
           ) : (
             <div className={styles.placeholder}>
               <h2>{notes.length === 0 ? 'No notes yet' : 'Nothing open'}</h2>

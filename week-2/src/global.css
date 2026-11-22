@@ -150,6 +150,16 @@ button {
   color: var(--color-accent);
 }
 
+.crash {
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: var(--space-3);
+  height: 100%;
+  padding: var(--space-8);
+  text-align: center;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
