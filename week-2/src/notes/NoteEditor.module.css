@@ -54,6 +54,17 @@
   color: var(--color-muted);
 }
 
+@media (width < 48rem) {
+  .back {
+    margin-right: auto;
+  }
+
+  .meta {
+    order: 1;
+    flex-basis: 100%;
+  }
+}
+
 @media (width >= 48rem) {
   .back {
     display: none;

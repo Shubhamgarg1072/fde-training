@@ -75,15 +75,7 @@
 /* On small screens only one pane is visible at a time. */
 @media (width < 48rem) {
   .shell[data-view='editor'] .sidebar,
-  .shell[data-view='list'] .results {
-    transition: opacity 150ms ease;
-  }
-
-  .results[data-stale='true'] {
-    opacity: 0.6;
-  }
-
-  .main {
+  .shell[data-view='list'] .main {
     display: none;
   }
 }
