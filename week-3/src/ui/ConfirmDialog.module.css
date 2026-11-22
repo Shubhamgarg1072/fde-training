@@ -1,0 +1,33 @@
+.dialog {
+  width: min(100% - 2rem, 26rem);
+  padding: var(--space-6);
+  border: 0;
+  border-radius: calc(var(--radius) + 2px);
+  box-shadow: 0 20px 48px rgb(22 24 29 / 0.25);
+}
+
+.dialog::backdrop {
+  background: rgb(22 24 29 / 0.45);
+}
+
+.dialog p {
+  margin-top: var(--space-2);
+  color: var(--color-muted);
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  margin-top: var(--space-6);
+}
+
+.danger {
+  border-color: var(--color-danger);
+  background: var(--color-danger);
+  color: #fff;
+}
+
+.danger:hover {
+  background: #912018;
+}

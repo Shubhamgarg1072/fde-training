@@ -1,0 +1,34 @@
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3) var(--space-5);
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-sm);
+}
+
+.size {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-right: auto;
+}
+
+.size select {
+  min-height: 2rem;
+  padding: 0 var(--space-2);
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.pageCount {
+  color: var(--color-muted);
+}

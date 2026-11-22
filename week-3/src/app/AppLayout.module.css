@@ -1,0 +1,124 @@
+.shell {
+  min-height: 100vh;
+}
+
+.sidebar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-5);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-sidebar);
+  color: #fff;
+}
+
+.brand {
+  font-weight: 700;
+}
+
+.nav {
+  display: flex;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav a {
+  display: block;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius);
+  color: var(--color-sidebar-muted);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.nav a:hover {
+  color: #fff;
+}
+
+.nav a[aria-current='page'] {
+  background: rgb(255 255 255 / 0.1);
+  color: #fff;
+}
+
+.sidebar :focus-visible {
+  outline-color: #fff;
+}
+
+.account {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-left: auto;
+  font-size: var(--text-sm);
+}
+
+.user {
+  color: var(--color-sidebar-muted);
+}
+
+.signOut {
+  padding: var(--space-1) var(--space-2);
+  border: 1px solid rgb(255 255 255 / 0.3);
+  border-radius: var(--radius);
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+
+.progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
+  background-size: 50% 100%;
+  background-repeat: no-repeat;
+  animation: slide 900ms ease-in-out infinite;
+}
+
+@keyframes slide {
+  from {
+    background-position: -50% 0;
+  }
+  to {
+    background-position: 150% 0;
+  }
+}
+
+@media (width >= 64rem) {
+  .shell {
+    display: grid;
+    grid-template-columns: 14rem 1fr;
+  }
+
+  .sidebar {
+    position: sticky;
+    top: 0;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    height: 100vh;
+    padding: var(--space-5) var(--space-3);
+  }
+
+  .brand {
+    padding-inline: var(--space-3);
+  }
+
+  .nav {
+    flex-direction: column;
+  }
+
+  .account {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: auto;
+    margin-left: 0;
+    padding-inline: var(--space-3);
+  }
+}

@@ -4,9 +4,11 @@ Assignments for weeks 1 to 3 of the frontend track. Each week is a separate app 
 its own folder with its own `package.json`, so they can be installed and run
 independently.
 
-| Folder              | What it is                        | Stack                       |
-| ------------------- | --------------------------------- | --------------------------- |
-| [`week-1`](week-1/) | Storefront with a persistent cart | HTML, CSS, JavaScript, Vite |
+| Folder              | What it is                                  | Stack                                                     |
+| ------------------- | ------------------------------------------- | --------------------------------------------------------- |
+| [`week-1`](week-1/) | Storefront with a persistent cart           | HTML, CSS, JavaScript, Vite                               |
+| [`week-2`](week-2/) | Notes app with search, tags and undo        | React, TypeScript, Zod                                    |
+| [`week-3`](week-3/) | Orders admin with auth against a mocked API | React Router, TanStack Query and Table, Zustand, RHF, MSW |
 
 ## Running a week
 
