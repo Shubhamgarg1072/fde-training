@@ -2,6 +2,7 @@ import { useId } from 'react';
 import { useNotesDispatch } from './notesContext.ts';
 import { NOTE_TITLE_MAX_LENGTH, type Note, type NoteChanges } from './schema.ts';
 import { ArrowLeftIcon, PinIcon } from '../components/icons.tsx';
+import { TagEditor } from './TagEditor.tsx';
 import { formatAbsoluteTime, formatRelativeTime } from '../lib/formatRelativeTime.ts';
 import styles from './NoteEditor.module.css';
 
@@ -65,6 +66,13 @@ export function NoteEditor({ note }: NoteEditorProps) {
         autoFocus={isBlank}
         onChange={(event) => {
           update({ title: event.target.value });
+        }}
+      />
+
+      <TagEditor
+        tags={note.tags}
+        onChange={(tags) => {
+          update({ tags });
         }}
       />
 

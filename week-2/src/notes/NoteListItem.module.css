@@ -49,3 +49,12 @@
   color: var(--color-muted);
   font-size: var(--text-xs);
 }
+
+.tags {
+  overflow: hidden;
+  color: var(--color-accent);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
