@@ -28,7 +28,7 @@ export function App() {
   return (
     <ErrorBoundary fallback={() => <AppCrashed />}>
       <NotesProvider initialNotes={loaded.notes}>
-        <NotesApp />
+        <NotesApp loadResult={loaded} />
       </NotesProvider>
     </ErrorBoundary>
   );

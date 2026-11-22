@@ -3,6 +3,8 @@ import { useNotesDispatch, useNotesState } from './notes/notesContext.ts';
 import { createNote, type Note } from './notes/schema.ts';
 import { useNoteSearch } from './notes/useNoteSearch.ts';
 import { SearchControls } from './notes/SearchControls.tsx';
+import { StorageNotice } from './notes/StorageNotice.tsx';
+import type { LoadResult } from './notes/storage.ts';
 import { NoteList } from './notes/NoteList.tsx';
 import { NoteEditor } from './notes/NoteEditor.tsx';
 import { PlusIcon } from './components/icons.tsx';
@@ -10,7 +12,7 @@ import { UndoToast } from './components/UndoToast.tsx';
 import { ErrorBoundary } from './components/ErrorBoundary.tsx';
 import styles from './NotesApp.module.css';
 
-export function NotesApp() {
+export function NotesApp({ loadResult }: { loadResult: LoadResult }) {
   const { notes, selectedId } = useNotesState();
   const dispatch = useNotesDispatch();
   const [query, setQuery] = useState('');
@@ -56,6 +58,8 @@ export function NotesApp() {
           New note
         </button>
       </header>
+
+      <StorageNotice loadResult={loadResult} />
 
       <div className={styles.panes}>
         <nav className={styles.sidebar} aria-label="Notes">
