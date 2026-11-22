@@ -3,9 +3,75 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Slow Pour</title>
+    <meta
+      name="description"
+      content="Slow Pour sells pour-over brewing gear and coffee roasted in small batches."
+    />
+    <meta name="theme-color" content="#f6f1e9" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>Slow Pour | Brewing gear and coffee</title>
   </head>
   <body>
+    <a class="skip-link" href="#catalogue">Skip to products</a>
+
+    <header class="site-header">
+      <div class="container site-header__inner">
+        <a class="brand" href="/">Slow Pour</a>
+        <nav aria-label="Primary">
+          <ul class="site-nav" role="list">
+            <li><a href="#catalogue">Shop</a></li>
+            <li><a href="#about">About</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="container hero__inner">
+          <p class="eyebrow">Brewing gear we use every morning</p>
+          <h1 id="hero-title">Good coffee is mostly patience.</h1>
+          <p class="hero__lede">
+            Kettles, drippers and grinders that hold up to daily use, plus beans roasted
+            in small batches every Tuesday.
+          </p>
+          <a class="button button--primary" href="#catalogue">Browse the shop</a>
+        </div>
+      </section>
+
+      <section
+        id="catalogue"
+        class="catalogue"
+        aria-labelledby="catalogue-title"
+        tabindex="-1"
+      >
+        <div class="container">
+          <h2 id="catalogue-title">Shop</h2>
+        </div>
+      </section>
+
+      <section id="about" class="about" aria-labelledby="about-title">
+        <div class="container about__inner">
+          <h2 id="about-title">Why we started</h2>
+          <p>
+            We spent years buying brewing gear that looked good on a shelf and fell apart
+            in six months. Everything here has been in our kitchen for at least a year
+            before we list it.
+          </p>
+          <p>Orders over $60 ship free within the US. Returns are free for 30 days.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container site-footer__inner">
+        <p>Slow Pour Coffee Co.</p>
+        <p>
+          Questions? <a href="mailto:hello@slowpour.example">hello@slowpour.example</a>
+        </p>
+      </div>
+    </footer>
+
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
