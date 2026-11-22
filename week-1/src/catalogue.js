@@ -10,6 +10,35 @@ export const CATEGORY_LABELS = {
 const grid = document.querySelector('[data-product-grid]');
 const status = document.querySelector('[data-catalogue-status]');
 const cardTemplate = document.querySelector('#product-card-template');
+const controls = document.querySelector('[data-catalogue-controls]');
+const categoryOptions = document.querySelector('[data-category-options]');
+
+export function renderFilterControls(categories, filters, onChange) {
+  const options = ['all', ...categories].map((category) => {
+    const label = document.createElement('label');
+    label.className = 'chip';
+    const input = document.createElement('input');
+    input.type = 'radio';
+    input.name = 'category';
+    input.value = category;
+    input.checked = category === filters.category;
+    label.append(
+      input,
+      category === 'all' ? 'All' : (CATEGORY_LABELS[category] ?? category),
+    );
+    return label;
+  });
+  categoryOptions.replaceChildren(...options);
+  controls.elements.sort.value = filters.sort;
+
+  controls.addEventListener('change', () => {
+    onChange({
+      category: controls.elements.category.value,
+      sort: controls.elements.sort.value,
+    });
+  });
+  controls.addEventListener('submit', (event) => event.preventDefault());
+}
 
 export function renderLoading() {
   grid.setAttribute('aria-busy', 'true');
