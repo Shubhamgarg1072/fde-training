@@ -9,9 +9,10 @@ import styles from './NoteEditor.module.css';
 interface NoteEditorProps {
   note: Note;
   onDelete: (note: Note) => void;
+  onClose: (noteId: string) => void;
 }
 
-export function NoteEditor({ note, onDelete }: NoteEditorProps) {
+export function NoteEditor({ note, onDelete, onClose }: NoteEditorProps) {
   const dispatch = useNotesDispatch();
   const titleId = useId();
   const bodyId = useId();
@@ -28,7 +29,7 @@ export function NoteEditor({ note, onDelete }: NoteEditorProps) {
           type="button"
           className={`button button--ghost ${styles.back}`}
           onClick={() => {
-            dispatch({ type: 'selected', id: null });
+            onClose(note.id);
           }}
         >
           <ArrowLeftIcon />
@@ -69,6 +70,7 @@ export function NoteEditor({ note, onDelete }: NoteEditorProps) {
       <input
         id={titleId}
         className={styles.title}
+        data-note-title
         value={note.title}
         placeholder="Untitled"
         maxLength={NOTE_TITLE_MAX_LENGTH}

@@ -105,6 +105,17 @@ describe('Margin', () => {
     await user.click(screen.getByRole('button', { name: 'Undo' }));
     expect(noteList().getByRole('button', { name: /Groceries/ })).toBeInTheDocument();
     expect(screen.getByRole('textbox', { name: 'Note' })).toHaveValue('Oat milk');
+    expect(screen.getByRole('textbox', { name: 'Title' })).toHaveFocus();
+  });
+
+  it('returns focus to the note in the list when the editor closes', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+    await createNote(user, 'Groceries');
+
+    await user.click(screen.getByRole('button', { name: 'All notes' }));
+
+    expect(noteList().getByRole('button', { name: /Groceries/ })).toHaveFocus();
   });
 
   it('keeps pinned notes at the top', async () => {

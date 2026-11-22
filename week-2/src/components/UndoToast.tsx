@@ -31,6 +31,7 @@ export function UndoToast({ message, onUndo, onDismiss }: UndoToastProps) {
     <div
       className={styles.toast}
       role="status"
+      data-toast
       onMouseEnter={() => {
         setIsPaused(true);
       }}

@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNotesDispatch, useNotesState } from './notes/notesContext.ts';
 import { createNote, type Note } from './notes/schema.ts';
 import { useNoteSearch } from './notes/useNoteSearch.ts';
@@ -22,6 +22,16 @@ export function NotesApp({ loadResult }: { loadResult: LoadResult }) {
   const isFiltering = query.trim() !== '' || activeTag !== null;
   const selectedNote = notes.find((note) => note.id === selectedId) ?? null;
 
+  // Some actions unmount the element that has focus (closing the editor, undoing a
+  // delete). They record where focus should go, and this moves it after React commits.
+  const shellRef = useRef<HTMLDivElement>(null);
+  const pendingFocus = useRef<string | null>(null);
+  useEffect(() => {
+    if (pendingFocus.current === null) return;
+    shellRef.current?.querySelector<HTMLElement>(pendingFocus.current)?.focus();
+    pendingFocus.current = null;
+  });
+
   const handleSelect = useCallback(
     (id: string) => {
       dispatch({ type: 'selected', id });
@@ -30,8 +40,18 @@ export function NotesApp({ loadResult }: { loadResult: LoadResult }) {
   );
 
   const dismissUndo = useCallback(() => {
+    if (document.activeElement?.closest('[data-toast]'))
+      pendingFocus.current = '[data-new-note]';
     setRecentlyDeleted(null);
   }, []);
+
+  const handleCloseEditor = useCallback(
+    (noteId: string) => {
+      pendingFocus.current = `[data-note-id="${CSS.escape(noteId)}"]`;
+      dispatch({ type: 'selected', id: null });
+    },
+    [dispatch],
+  );
 
   function handleCreate() {
     dispatch({ type: 'created', note: createNote() });
@@ -45,15 +65,25 @@ export function NotesApp({ loadResult }: { loadResult: LoadResult }) {
 
   function handleUndoDelete() {
     if (!recentlyDeleted) return;
+    pendingFocus.current = '[data-note-title]';
     dispatch({ type: 'restored', note: recentlyDeleted });
     setRecentlyDeleted(null);
   }
 
   return (
-    <div className={styles.shell} data-view={selectedNote ? 'editor' : 'list'}>
+    <div
+      ref={shellRef}
+      className={styles.shell}
+      data-view={selectedNote ? 'editor' : 'list'}
+    >
       <header className={styles.header}>
         <h1 className={styles.brand}>Margin</h1>
-        <button type="button" className="button button--primary" onClick={handleCreate}>
+        <button
+          type="button"
+          className="button button--primary"
+          data-new-note
+          onClick={handleCreate}
+        >
           <PlusIcon />
           New note
         </button>
@@ -107,7 +137,7 @@ export function NotesApp({ loadResult }: { loadResult: LoadResult }) {
                       type="button"
                       className="button button--ghost"
                       onClick={() => {
-                        dispatch({ type: 'selected', id: null });
+                        handleCloseEditor(selectedNote.id);
                       }}
                     >
                       Back to all notes
@@ -116,7 +146,11 @@ export function NotesApp({ loadResult }: { loadResult: LoadResult }) {
                 </div>
               )}
             >
-              <NoteEditor note={selectedNote} onDelete={handleDelete} />
+              <NoteEditor
+                note={selectedNote}
+                onDelete={handleDelete}
+                onClose={handleCloseEditor}
+              />
             </ErrorBoundary>
           ) : (
             <div className={styles.placeholder}>
