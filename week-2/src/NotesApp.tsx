@@ -1,7 +1,8 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback, useState } from 'react';
 import { useNotesDispatch, useNotesState } from './notes/notesContext.ts';
 import { createNote } from './notes/schema.ts';
-import { sortNotes } from './notes/sortNotes.ts';
+import { useNoteSearch } from './notes/useNoteSearch.ts';
+import { SearchControls } from './notes/SearchControls.tsx';
 import { NoteList } from './notes/NoteList.tsx';
 import { NoteEditor } from './notes/NoteEditor.tsx';
 import { PlusIcon } from './components/icons.tsx';
@@ -10,7 +11,10 @@ import styles from './NotesApp.module.css';
 export function NotesApp() {
   const { notes, selectedId } = useNotesState();
   const dispatch = useNotesDispatch();
-  const sortedNotes = useMemo(() => sortNotes(notes), [notes]);
+  const [query, setQuery] = useState('');
+  const [tagFilter, setTagFilter] = useState<string | null>(null);
+  const { results, allTags, activeTag, isStale } = useNoteSearch(notes, query, tagFilter);
+  const isFiltering = query.trim() !== '' || activeTag !== null;
   const selectedNote = notes.find((note) => note.id === selectedId) ?? null;
 
   const handleSelect = useCallback(
@@ -36,12 +40,32 @@ export function NotesApp() {
 
       <div className={styles.panes}>
         <nav className={styles.sidebar} aria-label="Notes">
-          <NoteList
-            notes={sortedNotes}
-            selectedId={selectedId}
-            onSelect={handleSelect}
-            emptyMessage="No notes yet. Create your first one."
-          />
+          {notes.length > 0 && (
+            <SearchControls
+              query={query}
+              onQueryChange={setQuery}
+              tags={allTags}
+              activeTag={activeTag}
+              onTagChange={setTagFilter}
+            />
+          )}
+          <p className="visually-hidden" role="status">
+            {isFiltering
+              ? `${results.length} matching ${results.length === 1 ? 'note' : 'notes'}`
+              : ''}
+          </p>
+          <div className={styles.results} data-stale={isStale}>
+            <NoteList
+              notes={results}
+              selectedId={selectedId}
+              onSelect={handleSelect}
+              emptyMessage={
+                isFiltering
+                  ? 'No notes match that search.'
+                  : 'No notes yet. Create your first one.'
+              }
+            />
+          </div>
         </nav>
 
         <main className={styles.main}>
