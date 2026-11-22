@@ -27,6 +27,26 @@ export const router = createBrowserRouter([
               Component: (await import('../orders/OrderDetailPage.tsx')).OrderDetailPage,
             }),
           },
+          {
+            path: 'products',
+            lazy: async () => ({
+              Component: (await import('../products/ProductsPage.tsx')).ProductsPage,
+            }),
+          },
+          {
+            path: 'products/new',
+            lazy: async () => ({
+              Component: (await import('../products/ProductFormPage.tsx'))
+                .ProductFormPage,
+            }),
+          },
+          {
+            path: 'products/:productId/edit',
+            lazy: async () => ({
+              Component: (await import('../products/ProductFormPage.tsx'))
+                .ProductFormPage,
+            }),
+          },
           { path: '*', element: <NotFoundPage /> },
         ],
       },

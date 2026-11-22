@@ -20,7 +20,7 @@ export function OrderDetailPage() {
   const listSearch = (useLocation().state as OrderLinkState | null)?.listSearch ?? '';
   const orderQuery = useQuery(orderDetailQuery(orderId));
   const backLink = (
-    <Link to={`/orders${listSearch}`} className={styles.back}>
+    <Link to={`/orders${listSearch}`} className="back-link">
       <span aria-hidden="true">←</span> All orders
     </Link>
   );

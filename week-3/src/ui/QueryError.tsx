@@ -8,16 +8,7 @@ interface QueryErrorProps {
 
 export function QueryError({ error, title, onRetry }: QueryErrorProps) {
   return (
-    <div
-      className="card"
-      role="alert"
-      style={{
-        padding: 'var(--space-6)',
-        display: 'grid',
-        gap: 'var(--space-3)',
-        justifyItems: 'start',
-      }}
-    >
+    <div className="card query-error" role="alert">
       <h2>{title}</h2>
       <p>
         {errorMessage(

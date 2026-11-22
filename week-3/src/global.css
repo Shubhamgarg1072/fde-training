@@ -179,6 +179,20 @@ textarea {
   color: var(--color-muted);
 }
 
+.back-link {
+  justify-self: start;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.query-error {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-3);
+  padding: var(--space-6);
+}
+
 .field {
   display: grid;
   gap: var(--space-1);
