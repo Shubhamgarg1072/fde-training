@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Slow Pour sells pour-over brewing gear and coffee roasted in small batches."
+    />
+    <meta name="theme-color" content="#f6f1e9" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>Slow Pour | Brewing gear and coffee</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#catalogue">Skip to products</a>
+
+    <header class="site-header">
+      <div class="container site-header__inner">
+        <a class="brand" href="/">Slow Pour</a>
+        <nav aria-label="Primary">
+          <ul class="site-nav" role="list">
+            <li><a href="#catalogue">Shop</a></li>
+            <li><a href="#about">About</a></li>
+          </ul>
+        </nav>
+        <button
+          class="cart-button"
+          type="button"
+          aria-haspopup="dialog"
+          aria-controls="cart-drawer"
+          data-open-cart
+          disabled
+        >
+          Cart
+          <span class="cart-button__count" data-cart-count>0</span>
+          <span class="visually-hidden">items</span>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="container hero__inner">
+          <p class="eyebrow">Brewing gear we use every morning</p>
+          <h1 id="hero-title">Good coffee is mostly patience.</h1>
+          <p class="hero__lede">
+            Kettles, drippers and grinders that hold up to daily use, plus beans roasted
+            in small batches every Tuesday.
+          </p>
+          <a class="button button--primary" href="#catalogue">Browse the shop</a>
+        </div>
+      </section>
+
+      <section
+        id="catalogue"
+        class="catalogue"
+        aria-labelledby="catalogue-title"
+        tabindex="-1"
+      >
+        <div class="container">
+          <div class="catalogue__header">
+            <h2 id="catalogue-title">Shop</h2>
+            <form class="catalogue__controls" data-catalogue-controls>
+              <fieldset class="category-filter">
+                <legend class="visually-hidden">Category</legend>
+                <div class="category-filter__options">
+                  <label class="chip"
+                    ><input type="radio" name="category" value="all" checked />All</label
+                  >
+                  <label class="chip"
+                    ><input type="radio" name="category" value="kettles" />Kettles</label
+                  >
+                  <label class="chip"
+                    ><input type="radio" name="category" value="brewers" />Brewers</label
+                  >
+                  <label class="chip"
+                    ><input
+                      type="radio"
+                      name="category"
+                      value="grinders"
+                    />Grinders</label
+                  >
+                  <label class="chip"
+                    ><input type="radio" name="category" value="coffee" />Coffee</label
+                  >
+                </div>
+              </fieldset>
+              <div class="sort-control">
+                <label for="sort">Sort by</label>
+                <select id="sort" name="sort">
+                  <option value="featured">Featured</option>
+                  <option value="price-asc">Price, low to high</option>
+                  <option value="price-desc">Price, high to low</option>
+                  <option value="name">Name</option>
+                </select>
+              </div>
+            </form>
+          </div>
+          <div class="catalogue__status" data-catalogue-status role="status"></div>
+          <ul class="product-grid" data-product-grid role="list" aria-busy="true"></ul>
+        </div>
+      </section>
+
+      <section id="about" class="about" aria-labelledby="about-title">
+        <div class="container about__inner">
+          <h2 id="about-title">Why we started</h2>
+          <p>
+            We spent years buying brewing gear that looked good on a shelf and fell apart
+            in six months. Everything here has been in our kitchen for at least a year
+            before we list it.
+          </p>
+          <p>Orders over $60 ship free within the US. Returns are free for 30 days.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container site-footer__inner">
+        <p>Slow Pour Coffee Co.</p>
+        <p>
+          Questions? <a href="mailto:hello@slowpour.example">hello@slowpour.example</a>
+        </p>
+      </div>
+    </footer>
+
+    <div class="visually-hidden" aria-live="polite" data-announcer></div>
+
+    <dialog id="cart-drawer" class="cart-drawer" aria-labelledby="cart-title">
+      <div class="cart-drawer__panel">
+        <div class="cart-drawer__header">
+          <h2 id="cart-title" tabindex="-1">Your cart</h2>
+          <button
+            class="icon-button"
+            type="button"
+            aria-label="Close cart"
+            data-close-cart
+          >
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+              <path
+                d="M6 6l12 12M18 6L6 18"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <div class="cart-drawer__empty" data-cart-empty>
+          <p>Your cart is empty.</p>
+          <p>
+            If you're not sure where to start, the ceramic dripper and a bag of Guji make
+            a good first setup.
+          </p>
+        </div>
+
+        <ul class="cart-lines" role="list" data-cart-lines></ul>
+
+        <div class="cart-drawer__footer" data-cart-summary>
+          <p class="cart-drawer__shipping-note" data-shipping-note></p>
+          <dl class="cart-summary">
+            <div>
+              <dt>Subtotal</dt>
+              <dd data-subtotal></dd>
+            </div>
+            <div>
+              <dt>Shipping</dt>
+              <dd data-shipping></dd>
+            </div>
+            <div class="cart-summary__total">
+              <dt>Total</dt>
+              <dd data-total></dd>
+            </div>
+          </dl>
+          <button
+            class="button button--primary button--block"
+            type="button"
+            data-close-cart
+          >
+            Keep shopping
+          </button>
+        </div>
+      </div>
+    </dialog>
+
+    <template id="cart-line-template">
+      <li class="cart-line">
+        <div class="cart-line__art" aria-hidden="true"></div>
+        <div class="cart-line__info">
+          <p class="cart-line__name"></p>
+          <p class="cart-line__unit-price"></p>
+        </div>
+        <div class="quantity">
+          <button class="quantity__step" type="button" data-control="decrease">
+            <span aria-hidden="true">&minus;</span>
+            <span class="visually-hidden" data-decrease-label></span>
+          </button>
+          <label class="visually-hidden" data-quantity-label></label>
+          <input
+            class="quantity__input"
+            type="number"
+            inputmode="numeric"
+            min="0"
+            max="10"
+            data-control="quantity"
+          />
+          <button class="quantity__step" type="button" data-control="increase">
+            <span aria-hidden="true">+</span>
+            <span class="visually-hidden" data-increase-label></span>
+          </button>
+        </div>
+        <p class="cart-line__total"></p>
+        <button class="link-button" type="button" data-control="remove">
+          Remove<span class="visually-hidden" data-remove-label></span>
+        </button>
+      </li>
+    </template>
+
+    <template id="product-card-template">
+      <li class="product-card">
+        <div class="product-card__art" aria-hidden="true">
+          <span class="product-card__monogram"></span>
+        </div>
+        <div class="product-card__body">
+          <p class="product-card__category"></p>
+          <h3 class="product-card__name"></h3>
+          <p class="product-card__description"></p>
+          <div class="product-card__footer">
+            <p class="product-card__price"></p>
+            <button class="button" type="button" data-add-to-cart>
+              Add<span class="visually-hidden" data-product-label></span>
+            </button>
+          </div>
+        </div>
+      </li>
+    </template>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

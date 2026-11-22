@@ -1,0 +1,62 @@
+import './styles.css';
+import { fetchProducts } from './products.js';
+import {
+  CATEGORY_LABELS,
+  initFilterControls,
+  renderLoadError,
+  renderLoading,
+  renderProducts,
+} from './catalogue.js';
+import {
+  applyFilters,
+  readFiltersFromUrl,
+  writeFiltersToUrl,
+} from './catalogue-filters.js';
+import { cart } from './cart-store.js';
+import { initCartDrawer } from './cart-drawer.js';
+import { announce } from './announcer.js';
+
+const cartCount = document.querySelector('[data-cart-count]');
+const productGrid = document.querySelector('[data-product-grid]');
+
+function renderCartCount(items) {
+  cartCount.textContent = items.reduce((sum, item) => sum + item.quantity, 0);
+}
+
+async function loadCatalogue() {
+  renderLoading();
+  let products;
+  try {
+    products = await fetchProducts();
+  } catch (error) {
+    console.error(error);
+    renderLoadError(loadCatalogue);
+    return;
+  }
+
+  cart.retainOnly(products.map((product) => product.id));
+  initCartDrawer(products);
+
+  const filters = readFiltersFromUrl(Object.keys(CATEGORY_LABELS));
+
+  initFilterControls(filters, (nextFilters) => {
+    writeFiltersToUrl(nextFilters);
+    renderProducts(applyFilters(products, nextFilters));
+  });
+  renderProducts(applyFilters(products, filters));
+}
+
+productGrid.addEventListener('click', (event) => {
+  const button = event.target.closest('[data-add-to-cart]');
+  if (!button) return;
+  cart.add(button.dataset.productId);
+  const name = button
+    .closest('.product-card')
+    .querySelector('.product-card__name').textContent;
+  const count = cart.getItems().reduce((sum, item) => sum + item.quantity, 0);
+  announce(`Added ${name}. ${count} ${count === 1 ? 'item' : 'items'} in your cart.`);
+});
+
+cart.subscribe(renderCartCount);
+renderCartCount(cart.getItems());
+loadCatalogue();
