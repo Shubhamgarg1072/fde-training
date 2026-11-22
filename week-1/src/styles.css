@@ -332,7 +332,6 @@ select {
 }
 
 .product-card--placeholder {
-  min-height: 22rem;
   background: linear-gradient(
     100deg,
     var(--color-surface) 40%,
@@ -341,6 +340,17 @@ select {
   );
   background-size: 200% 100%;
   animation: shimmer 1.4s linear infinite;
+}
+
+/* Same proportions as a loaded card so the grid doesn't jump when products arrive. */
+.product-card--placeholder::before {
+  content: '';
+  aspect-ratio: 4 / 3;
+}
+
+.product-card--placeholder::after {
+  content: '';
+  height: 13rem;
 }
 
 @keyframes shimmer {

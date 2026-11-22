@@ -2,7 +2,7 @@ import './styles.css';
 import { fetchProducts } from './products.js';
 import {
   CATEGORY_LABELS,
-  renderFilterControls,
+  initFilterControls,
   renderLoadError,
   renderLoading,
   renderProducts,
@@ -37,12 +37,9 @@ async function loadCatalogue() {
   cart.retainOnly(products.map((product) => product.id));
   initCartDrawer(products);
 
-  const categories = Object.keys(CATEGORY_LABELS).filter((category) =>
-    products.some((product) => product.category === category),
-  );
-  const filters = readFiltersFromUrl(categories);
+  const filters = readFiltersFromUrl(Object.keys(CATEGORY_LABELS));
 
-  renderFilterControls(categories, filters, (nextFilters) => {
+  initFilterControls(filters, (nextFilters) => {
     writeFiltersToUrl(nextFilters);
     renderProducts(applyFilters(products, nextFilters));
   });
