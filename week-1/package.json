@@ -10,7 +10,7 @@
     "lint": "eslint .",
     "format": "prettier --write . --ignore-path ../.prettierignore",
     "format:check": "prettier --check . --ignore-path ../.prettierignore",
-    "test": "node --test"
+    "test": "node --test \"src/**/*.test.js\""
   },
   "engines": {
     "node": ">=22"
