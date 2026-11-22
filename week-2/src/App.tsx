@@ -1,3 +1,14 @@
+import { useState } from 'react';
+import { NotesProvider } from './notes/NotesProvider.tsx';
+import { loadNotes } from './notes/storage.ts';
+import { NotesApp } from './NotesApp.tsx';
+
 export function App() {
-  return <h1>Margin</h1>;
+  const [loaded] = useState(loadNotes);
+
+  return (
+    <NotesProvider initialNotes={loaded.notes}>
+      <NotesApp />
+    </NotesProvider>
+  );
 }

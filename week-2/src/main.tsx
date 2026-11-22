@@ -1,5 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+// Global styles first so component modules can override the shared .button class.
+import './global.css';
 import { App } from './App.tsx';
 
 const root = document.getElementById('root');
