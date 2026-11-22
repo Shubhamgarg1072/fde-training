@@ -1,16 +1,17 @@
 import { useId } from 'react';
 import { useNotesDispatch } from './notesContext.ts';
 import { NOTE_TITLE_MAX_LENGTH, type Note, type NoteChanges } from './schema.ts';
-import { ArrowLeftIcon, PinIcon } from '../components/icons.tsx';
+import { ArrowLeftIcon, PinIcon, TrashIcon } from '../components/icons.tsx';
 import { TagEditor } from './TagEditor.tsx';
 import { formatAbsoluteTime, formatRelativeTime } from '../lib/formatRelativeTime.ts';
 import styles from './NoteEditor.module.css';
 
 interface NoteEditorProps {
   note: Note;
+  onDelete: (note: Note) => void;
 }
 
-export function NoteEditor({ note }: NoteEditorProps) {
+export function NoteEditor({ note, onDelete }: NoteEditorProps) {
   const dispatch = useNotesDispatch();
   const titleId = useId();
   const bodyId = useId();
@@ -49,6 +50,16 @@ export function NoteEditor({ note }: NoteEditorProps) {
         >
           <PinIcon />
           Pin
+        </button>
+        <button
+          type="button"
+          className="button button--ghost"
+          onClick={() => {
+            onDelete(note);
+          }}
+        >
+          <TrashIcon />
+          Delete
         </button>
       </div>
 

@@ -1,11 +1,12 @@
 import { useCallback, useState } from 'react';
 import { useNotesDispatch, useNotesState } from './notes/notesContext.ts';
-import { createNote } from './notes/schema.ts';
+import { createNote, type Note } from './notes/schema.ts';
 import { useNoteSearch } from './notes/useNoteSearch.ts';
 import { SearchControls } from './notes/SearchControls.tsx';
 import { NoteList } from './notes/NoteList.tsx';
 import { NoteEditor } from './notes/NoteEditor.tsx';
 import { PlusIcon } from './components/icons.tsx';
+import { UndoToast } from './components/UndoToast.tsx';
 import styles from './NotesApp.module.css';
 
 export function NotesApp() {
@@ -14,6 +15,7 @@ export function NotesApp() {
   const [query, setQuery] = useState('');
   const [tagFilter, setTagFilter] = useState<string | null>(null);
   const { results, allTags, activeTag, isStale } = useNoteSearch(notes, query, tagFilter);
+  const [recentlyDeleted, setRecentlyDeleted] = useState<Note | null>(null);
   const isFiltering = query.trim() !== '' || activeTag !== null;
   const selectedNote = notes.find((note) => note.id === selectedId) ?? null;
 
@@ -24,8 +26,24 @@ export function NotesApp() {
     [dispatch],
   );
 
+  const dismissUndo = useCallback(() => {
+    setRecentlyDeleted(null);
+  }, []);
+
   function handleCreate() {
     dispatch({ type: 'created', note: createNote() });
+  }
+
+  // Deleting is immediate and offers undo, rather than asking "Are you sure?" first.
+  function handleDelete(note: Note) {
+    dispatch({ type: 'deleted', id: note.id });
+    setRecentlyDeleted(note);
+  }
+
+  function handleUndoDelete() {
+    if (!recentlyDeleted) return;
+    dispatch({ type: 'restored', note: recentlyDeleted });
+    setRecentlyDeleted(null);
   }
 
   return (
@@ -70,7 +88,11 @@ export function NotesApp() {
 
         <main className={styles.main}>
           {selectedNote ? (
-            <NoteEditor key={selectedNote.id} note={selectedNote} />
+            <NoteEditor
+              key={selectedNote.id}
+              note={selectedNote}
+              onDelete={handleDelete}
+            />
           ) : (
             <div className={styles.placeholder}>
               <h2>{notes.length === 0 ? 'No notes yet' : 'Nothing open'}</h2>
@@ -83,6 +105,15 @@ export function NotesApp() {
           )}
         </main>
       </div>
+
+      {recentlyDeleted && (
+        <UndoToast
+          key={recentlyDeleted.id}
+          message={`Deleted "${recentlyDeleted.title.trim() || 'Untitled'}".`}
+          onUndo={handleUndoDelete}
+          onDismiss={dismissUndo}
+        />
+      )}
     </div>
   );
 }
