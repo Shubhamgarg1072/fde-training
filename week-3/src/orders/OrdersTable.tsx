@@ -5,12 +5,25 @@ import {
   useReactTable,
   type SortingState,
 } from '@tanstack/react-table';
-import { Link } from 'react-router';
+import { Link, useLocation } from 'react-router';
+import type { OrderLinkState } from './OrderDetailPage.tsx';
 import { StatusBadge } from './StatusBadge.tsx';
 import { ORDER_SORT_FIELDS, type OrderSortField, type OrderSummary } from './schemas.ts';
 import { formatCents, formatDateTime } from '../lib/format.ts';
 import type { TableDensity } from '../ui/prefsStore.ts';
 import styles from './OrdersTable.module.css';
+
+// Carries the list's query string along so "All orders" on the detail page returns to
+// the same filters, sort and page.
+function OrderLink({ orderId }: { orderId: string }) {
+  const { search } = useLocation();
+  const state: OrderLinkState = { listSearch: search };
+  return (
+    <Link to={`/orders/${orderId}`} state={state}>
+      {orderId}
+    </Link>
+  );
+}
 
 const column = createColumnHelper<OrderSummary>();
 
@@ -18,7 +31,7 @@ const columns = [
   column.accessor('id', {
     header: 'Order',
     enableSorting: false,
-    cell: (info) => <Link to={`/orders/${info.getValue()}`}>{info.getValue()}</Link>,
+    cell: (info) => <OrderLink orderId={info.getValue()} />,
   }),
   column.accessor('customerName', {
     header: 'Customer',

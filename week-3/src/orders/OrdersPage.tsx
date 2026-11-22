@@ -10,6 +10,7 @@ import { usePrefsStore } from '../ui/prefsStore.ts';
 import { Spinner } from '../ui/Spinner.tsx';
 import { QueryError } from '../ui/QueryError.tsx';
 import styles from './OrdersPage.module.css';
+import { PageHeading } from '../ui/PageHeading.tsx';
 
 const SEARCH_DELAY_MS = 300;
 
@@ -51,7 +52,7 @@ export function OrdersPage() {
       <title>Orders · Slow Pour Admin</title>
       <div className="page-header">
         <div>
-          <h1 tabIndex={-1}>Orders</h1>
+          <PageHeading>Orders</PageHeading>
           <p>Every order placed in the shop, newest first.</p>
         </div>
       </div>

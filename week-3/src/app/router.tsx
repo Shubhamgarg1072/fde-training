@@ -21,6 +21,12 @@ export const router = createBrowserRouter([
               Component: (await import('../orders/OrdersPage.tsx')).OrdersPage,
             }),
           },
+          {
+            path: 'orders/:orderId',
+            lazy: async () => ({
+              Component: (await import('../orders/OrderDetailPage.tsx')).OrderDetailPage,
+            }),
+          },
           { path: '*', element: <NotFoundPage /> },
         ],
       },
