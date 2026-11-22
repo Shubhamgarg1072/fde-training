@@ -75,6 +75,10 @@ a:hover {
   color: var(--color-accent-strong);
 }
 
+[id] {
+  scroll-margin-top: 5rem;
+}
+
 :focus-visible {
   outline: 3px solid var(--color-focus);
   outline-offset: 2px;

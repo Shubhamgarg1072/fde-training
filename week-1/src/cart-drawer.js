@@ -1,6 +1,7 @@
 import { cart } from './cart-store.js';
 import { MAX_QUANTITY, cartTotals } from './cart.js';
 import { formatPrice } from './format.js';
+import { announce } from './announcer.js';
 
 const openButton = document.querySelector('[data-open-cart]');
 const drawer = document.querySelector('#cart-drawer');
@@ -24,6 +25,8 @@ export function initCartDrawer(products) {
     drawer.showModal();
     heading.focus();
   });
+  // Browsers are supposed to restore focus when a modal dialog closes, but older Safari doesn't.
+  drawer.addEventListener('close', () => openButton.focus());
   drawer.addEventListener('click', handleDrawerClick);
   list.addEventListener('change', handleQuantityChange);
 
@@ -52,6 +55,7 @@ function handleDrawerClick(event) {
     cart.setQuantity(productId, quantityOf(productId) - 1);
   } else if (control.dataset.control === 'remove') {
     cart.remove(productId);
+    announce(`Removed ${productsById.get(productId).name} from your cart.`);
   }
 }
 
@@ -68,8 +72,10 @@ function handleQuantityChange(event) {
 }
 
 function render(items) {
+  const focusTarget = captureFocus();
   const lines = items.filter((item) => productsById.has(item.productId));
   list.replaceChildren(...lines.map(createLine));
+  restoreFocus(focusTarget);
 
   const totals = cartTotals(items, productsById);
   const isEmpty = lines.length === 0;
@@ -84,6 +90,30 @@ function render(items) {
     totals.centsUntilFreeShipping > 0
       ? `Add ${formatPrice(totals.centsUntilFreeShipping)} more for free shipping.`
       : 'Your order ships free.';
+}
+
+// Lines are rebuilt on every change, so remember which control had focus and put it back.
+function captureFocus() {
+  const active = document.activeElement;
+  const line = active?.closest('[data-product-id]');
+  if (!line || !list.contains(line)) return null;
+  return {
+    productId: line.dataset.productId,
+    control: active.dataset.control,
+    index: Array.prototype.indexOf.call(list.children, line),
+  };
+}
+
+function restoreFocus(target) {
+  if (!target) return;
+  const line = list.querySelector(`[data-product-id="${CSS.escape(target.productId)}"]`);
+  if (line) {
+    line.querySelector(`[data-control="${target.control}"]`)?.focus();
+    return;
+  }
+  // The line was removed. Move to the line that took its place, or the heading if the cart is empty.
+  const neighbour = list.children[Math.min(target.index, list.children.length - 1)];
+  (neighbour?.querySelector('[data-control="remove"]') ?? heading).focus();
 }
 
 function createLine({ productId, quantity }) {
@@ -109,9 +139,10 @@ function createLine({ productId, quantity }) {
   input.value = quantity;
   input.max = MAX_QUANTITY;
 
-  line.querySelector('[data-decrease-label]').textContent = `Remove one ${product.name}`;
+  line.querySelector('[data-decrease-label]').textContent =
+    `Decrease quantity of ${product.name}`;
   line.querySelector('[data-increase-label]').textContent =
-    `Add one more ${product.name}`;
+    `Increase quantity of ${product.name}`;
   line.querySelector('[data-remove-label]').textContent = ` ${product.name} from cart`;
   // aria-disabled instead of disabled so the button keeps focus when the limit is reached.
   line

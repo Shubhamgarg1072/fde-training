@@ -14,6 +14,7 @@ import {
 } from './catalogue-filters.js';
 import { cart } from './cart-store.js';
 import { initCartDrawer } from './cart-drawer.js';
+import { announce } from './announcer.js';
 
 const cartCount = document.querySelector('[data-cart-count]');
 const productGrid = document.querySelector('[data-product-grid]');
@@ -50,7 +51,13 @@ async function loadCatalogue() {
 
 productGrid.addEventListener('click', (event) => {
   const button = event.target.closest('[data-add-to-cart]');
-  if (button) cart.add(button.dataset.productId);
+  if (!button) return;
+  cart.add(button.dataset.productId);
+  const name = button
+    .closest('.product-card')
+    .querySelector('.product-card__name').textContent;
+  const count = cart.getItems().reduce((sum, item) => sum + item.quantity, 0);
+  announce(`Added ${name}. ${count} ${count === 1 ? 'item' : 'items'} in your cart.`);
 });
 
 cart.subscribe(renderCartCount);
