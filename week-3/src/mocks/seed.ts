@@ -61,13 +61,7 @@ const CUSTOMERS = [
   ['Freya Morgan', 'Raleigh', 'NC'],
 ] as const;
 
-const STREETS = [
-  'Mill Lane',
-  'Park Road',
-  'Church Street',
-  'Station Road',
-  'Victoria Street',
-];
+const STREETS = ['Alder St', 'Maple Ave', 'Division St', 'Hawthorne Blvd', 'Elm St'];
 const FLAT_SHIPPING_CENTS = 650;
 const FREE_SHIPPING_FROM_CENTS = 6000;
 
