@@ -23,6 +23,18 @@
             <li><a href="#about">About</a></li>
           </ul>
         </nav>
+        <button
+          class="cart-button"
+          type="button"
+          aria-haspopup="dialog"
+          aria-controls="cart-drawer"
+          data-open-cart
+          disabled
+        >
+          Cart
+          <span class="cart-button__count" data-cart-count>0</span>
+          <span class="visually-hidden">items</span>
+        </button>
       </div>
     </header>
 
@@ -90,6 +102,97 @@
         </p>
       </div>
     </footer>
+
+    <dialog id="cart-drawer" class="cart-drawer" aria-labelledby="cart-title">
+      <div class="cart-drawer__panel">
+        <div class="cart-drawer__header">
+          <h2 id="cart-title" tabindex="-1">Your cart</h2>
+          <button
+            class="icon-button"
+            type="button"
+            aria-label="Close cart"
+            data-close-cart
+          >
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+              <path
+                d="M6 6l12 12M18 6L6 18"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <div class="cart-drawer__empty" data-cart-empty>
+          <p>Your cart is empty.</p>
+          <p>
+            If you're not sure where to start, the ceramic dripper and a bag of Guji make
+            a good first setup.
+          </p>
+        </div>
+
+        <ul class="cart-lines" role="list" data-cart-lines></ul>
+
+        <div class="cart-drawer__footer" data-cart-summary>
+          <p class="cart-drawer__shipping-note" data-shipping-note></p>
+          <dl class="cart-summary">
+            <div>
+              <dt>Subtotal</dt>
+              <dd data-subtotal></dd>
+            </div>
+            <div>
+              <dt>Shipping</dt>
+              <dd data-shipping></dd>
+            </div>
+            <div class="cart-summary__total">
+              <dt>Total</dt>
+              <dd data-total></dd>
+            </div>
+          </dl>
+          <button
+            class="button button--primary button--block"
+            type="button"
+            data-close-cart
+          >
+            Keep shopping
+          </button>
+        </div>
+      </div>
+    </dialog>
+
+    <template id="cart-line-template">
+      <li class="cart-line">
+        <div class="cart-line__art" aria-hidden="true"></div>
+        <div class="cart-line__info">
+          <p class="cart-line__name"></p>
+          <p class="cart-line__unit-price"></p>
+        </div>
+        <div class="quantity">
+          <button class="quantity__step" type="button" data-control="decrease">
+            <span aria-hidden="true">&minus;</span>
+            <span class="visually-hidden" data-decrease-label></span>
+          </button>
+          <label class="visually-hidden" data-quantity-label></label>
+          <input
+            class="quantity__input"
+            type="number"
+            inputmode="numeric"
+            min="0"
+            max="10"
+            data-control="quantity"
+          />
+          <button class="quantity__step" type="button" data-control="increase">
+            <span aria-hidden="true">+</span>
+            <span class="visually-hidden" data-increase-label></span>
+          </button>
+        </div>
+        <p class="cart-line__total"></p>
+        <button class="link-button" type="button" data-control="remove">
+          Remove<span class="visually-hidden" data-remove-label></span>
+        </button>
+      </li>
+    </template>
 
     <template id="product-card-template">
       <li class="product-card">
