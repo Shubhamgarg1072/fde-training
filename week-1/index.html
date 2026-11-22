@@ -46,7 +46,11 @@
         tabindex="-1"
       >
         <div class="container">
-          <h2 id="catalogue-title">Shop</h2>
+          <div class="catalogue__header">
+            <h2 id="catalogue-title">Shop</h2>
+          </div>
+          <div class="catalogue__status" data-catalogue-status role="status"></div>
+          <ul class="product-grid" data-product-grid role="list" aria-busy="true"></ul>
         </div>
       </section>
 
@@ -71,6 +75,25 @@
         </p>
       </div>
     </footer>
+
+    <template id="product-card-template">
+      <li class="product-card">
+        <div class="product-card__art" aria-hidden="true">
+          <span class="product-card__monogram"></span>
+        </div>
+        <div class="product-card__body">
+          <p class="product-card__category"></p>
+          <h3 class="product-card__name"></h3>
+          <p class="product-card__description"></p>
+          <div class="product-card__footer">
+            <p class="product-card__price"></p>
+            <button class="button" type="button" data-add-to-cart>
+              Add<span class="visually-hidden" data-product-label></span>
+            </button>
+          </div>
+        </div>
+      </li>
+    </template>
 
     <script type="module" src="/src/main.js"></script>
   </body>

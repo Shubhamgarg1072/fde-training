@@ -1,0 +1,110 @@
+[
+  {
+    "id": "gooseneck-kettle",
+    "name": "Gooseneck kettle",
+    "category": "kettles",
+    "priceCents": 6400,
+    "description": "0.9 L stainless body with a narrow spout for a slow, even pour.",
+    "monogram": "Gk",
+    "swatch": "#c9b79c"
+  },
+  {
+    "id": "electric-kettle",
+    "name": "Electric pour-over kettle",
+    "category": "kettles",
+    "priceCents": 13900,
+    "description": "Holds temperature to within a degree. Keeps warm for 60 minutes.",
+    "monogram": "Ek",
+    "swatch": "#3d3a36"
+  },
+  {
+    "id": "ceramic-dripper",
+    "name": "Ceramic cone dripper",
+    "category": "brewers",
+    "priceCents": 2800,
+    "description": "Single cup, spiral ribs, fits standard #02 filters.",
+    "monogram": "Cd",
+    "swatch": "#e9e2d6"
+  },
+  {
+    "id": "flat-bottom-dripper",
+    "name": "Flat-bottom dripper",
+    "category": "brewers",
+    "priceCents": 3600,
+    "description": "Three small holes slow the drawdown, so it forgives an uneven pour.",
+    "monogram": "Fb",
+    "swatch": "#8a9a8b"
+  },
+  {
+    "id": "glass-carafe",
+    "name": "Glass carafe, 600 ml",
+    "category": "brewers",
+    "priceCents": 3200,
+    "description": "Borosilicate glass with a cork collar. Safe on a gas flame.",
+    "monogram": "Gc",
+    "swatch": "#b9cbd1"
+  },
+  {
+    "id": "hand-grinder",
+    "name": "Hand grinder",
+    "category": "grinders",
+    "priceCents": 11500,
+    "description": "Steel conical burrs and 40 click settings. Grinds 20 g in under a minute.",
+    "monogram": "Hg",
+    "swatch": "#5b4636"
+  },
+  {
+    "id": "burr-grinder",
+    "name": "Electric burr grinder",
+    "category": "grinders",
+    "priceCents": 24900,
+    "description": "Flat 64 mm burrs and very little retention. Built for filter and espresso.",
+    "monogram": "Bg",
+    "swatch": "#2b2b2b"
+  },
+  {
+    "id": "scale",
+    "name": "Brew scale with timer",
+    "category": "brewers",
+    "priceCents": 4500,
+    "description": "0.1 g resolution and a timer that starts on first pour.",
+    "monogram": "Sc",
+    "swatch": "#d7cfc4"
+  },
+  {
+    "id": "ethiopia-guji",
+    "name": "Ethiopia Guji, 250 g",
+    "category": "coffee",
+    "priceCents": 1900,
+    "description": "Washed. Tastes of peach, black tea and honey.",
+    "monogram": "Eg",
+    "swatch": "#d98f5c"
+  },
+  {
+    "id": "colombia-huila",
+    "name": "Colombia Huila, 250 g",
+    "category": "coffee",
+    "priceCents": 1700,
+    "description": "Washed. Tastes of red apple, caramel and cocoa.",
+    "monogram": "Ch",
+    "swatch": "#a2553a"
+  },
+  {
+    "id": "kenya-nyeri",
+    "name": "Kenya Nyeri, 250 g",
+    "category": "coffee",
+    "priceCents": 2200,
+    "description": "Washed. Tastes of blackcurrant, grapefruit and brown sugar.",
+    "monogram": "Kn",
+    "swatch": "#7a2f3b"
+  },
+  {
+    "id": "paper-filters",
+    "name": "Paper filters, 100 pack",
+    "category": "brewers",
+    "priceCents": 800,
+    "description": "Unbleached cone filters. Rinse first to get rid of the paper taste.",
+    "monogram": "Pf",
+    "swatch": "#efe6d4"
+  }
+]
