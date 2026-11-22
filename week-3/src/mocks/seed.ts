@@ -43,22 +43,22 @@ export const seedProducts: Product[] = [
 }));
 
 const CUSTOMERS = [
-  ['Priya Raman', 'Bristol'],
-  ['Tomás Ortega', 'Leeds'],
-  ['Hannah Becker', 'York'],
-  ['Kwame Mensah', 'London'],
-  ['Mei Lin', 'Manchester'],
-  ['Oliver Grant', 'Brighton'],
-  ['Aisha Khan', 'Birmingham'],
-  ['Lucas Moreau', 'Edinburgh'],
-  ['Sofia Rossi', 'Glasgow'],
-  ['Daniel Kim', 'Cardiff'],
-  ['Grace Okafor', 'Nottingham'],
-  ['Elias Lindqvist', 'Bath'],
-  ['Nadia Haddad', 'Oxford'],
-  ['Sam Whitaker', 'Sheffield'],
-  ['Yuki Tanaka', 'Cambridge'],
-  ['Freya Morgan', 'Norwich'],
+  ['Priya Raman', 'Portland', 'OR'],
+  ['Tomás Ortega', 'Austin', 'TX'],
+  ['Hannah Becker', 'Madison', 'WI'],
+  ['Kwame Mensah', 'Brooklyn', 'NY'],
+  ['Mei Lin', 'Seattle', 'WA'],
+  ['Oliver Grant', 'Denver', 'CO'],
+  ['Aisha Khan', 'Chicago', 'IL'],
+  ['Lucas Moreau', 'Boston', 'MA'],
+  ['Sofia Rossi', 'Philadelphia', 'PA'],
+  ['Daniel Kim', 'Oakland', 'CA'],
+  ['Grace Okafor', 'Minneapolis', 'MN'],
+  ['Elias Lindqvist', 'Burlington', 'VT'],
+  ['Nadia Haddad', 'Asheville', 'NC'],
+  ['Sam Whitaker', 'Pittsburgh', 'PA'],
+  ['Yuki Tanaka', 'Tucson', 'AZ'],
+  ['Freya Morgan', 'Raleigh', 'NC'],
 ] as const;
 
 const STREETS = [
@@ -98,7 +98,7 @@ export function generateOrders(): Order[] {
   return Array.from({ length: ORDER_COUNT }, (_, index) => {
     const ageDays = (index / ORDER_COUNT) * 60 + random() * 0.8;
     const createdAt = new Date(SEED_DATE.getTime() - ageDays * DAY_MS);
-    const [customerName, city] = pick(CUSTOMERS);
+    const [customerName, city, state] = pick(CUSTOMERS);
 
     const lineCount = 1 + Math.floor(random() * 3);
     const products = [...seedProducts].sort(() => random() - 0.5).slice(0, lineCount);
@@ -139,9 +139,9 @@ export function generateOrders(): Order[] {
       shippingCents,
       shippingAddress: {
         line1: `${String(1 + Math.floor(random() * 120))} ${pick(STREETS)}`,
-        city,
-        postcode: `${city.slice(0, 2).toUpperCase()}${String(1 + Math.floor(random() * 20))} ${String(Math.floor(random() * 9))}AB`,
-        country: 'United Kingdom',
+        city: `${city}, ${state}`,
+        postcode: String(10000 + Math.floor(random() * 89999)),
+        country: 'United States',
       },
       statusHistory,
     };
