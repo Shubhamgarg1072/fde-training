@@ -1,4 +1,5 @@
 import { formatPrice } from './format.js';
+import { MAX_QUANTITY } from './cart.js';
 
 export const CATEGORY_LABELS = {
   kettles: 'Kettles',
@@ -74,7 +75,31 @@ function createProductCard(product) {
   card.querySelector('.product-card__price').textContent = formatPrice(
     product.priceCents,
   );
+  card.dataset.productId = product.id;
   card.querySelector('[data-add-to-cart]').dataset.productId = product.id;
   card.querySelector('[data-product-label]').textContent = ` ${product.name} to cart`;
+  card
+    .querySelector('[data-card-stepper]')
+    .setAttribute('aria-label', `${product.name} in cart`);
+  card.querySelector('[data-decrease-label]').textContent =
+    `Decrease quantity of ${product.name}`;
+  card.querySelector('[data-increase-label]').textContent =
+    `Increase quantity of ${product.name}`;
   return card;
+}
+
+// Cards show "Add" until the product is in the cart, then a stepper with the quantity.
+// Called after every render and on every cart change, so the cards stay in step with
+// the drawer and with other tabs.
+export function syncCardQuantities(items) {
+  const quantities = new Map(items.map((item) => [item.productId, item.quantity]));
+  for (const card of grid.querySelectorAll('.product-card[data-product-id]')) {
+    const quantity = quantities.get(card.dataset.productId) ?? 0;
+    card.querySelector('[data-add-to-cart]').hidden = quantity > 0;
+    card.querySelector('[data-card-stepper]').hidden = quantity === 0;
+    card.querySelector('[data-card-count]').textContent = quantity;
+    card
+      .querySelector('[data-card-step="1"]')
+      .setAttribute('aria-disabled', String(quantity >= MAX_QUANTITY));
+  }
 }

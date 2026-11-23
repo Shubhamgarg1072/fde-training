@@ -71,6 +71,12 @@ re-render, so `cart-drawer.js` records which control had focus and restores it. 
 a removal, focus moves to the next line's Remove button, or to the heading if the cart
 is empty.
 
+**Product cards show what's already in the cart.** Once a product is added, its Add
+button is replaced by a − / + stepper showing the quantity. The cards subscribe to the
+same cart store as the drawer, so a change in either place, or in another tab, shows
+up in both. When a click swaps one control for the other, focus moves to the
+replacement, so keyboard users stay on the same card.
+
 **Category filters are radio buttons styled as chips.** A radio group already has the
 right semantics (one choice from a set) and arrow-key navigation. Toggle buttons with
 `aria-pressed` would need us to rebuild both. Filter and sort live in the URL via
