@@ -230,6 +230,19 @@
             <button class="button" type="button" data-add-to-cart>
               Add<span class="visually-hidden" data-product-label></span>
             </button>
+            <div class="card-stepper" role="group" data-card-stepper hidden>
+              <button class="card-stepper__step" type="button" data-card-step="-1">
+                <span aria-hidden="true">&minus;</span>
+                <span class="visually-hidden" data-decrease-label></span>
+              </button>
+              <span class="card-stepper__count">
+                <span data-card-count></span><span class="visually-hidden"> in cart</span>
+              </span>
+              <button class="card-stepper__step" type="button" data-card-step="1">
+                <span aria-hidden="true">+</span>
+                <span class="visually-hidden" data-increase-label></span>
+              </button>
+            </div>
           </div>
         </div>
       </li>
