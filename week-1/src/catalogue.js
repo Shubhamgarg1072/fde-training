@@ -81,7 +81,8 @@ function createProductCard(product) {
   card
     .querySelector('[data-card-stepper]')
     .setAttribute('aria-label', `${product.name} in cart`);
-  card.querySelector('[data-decrease-label]').textContent = `Decrease quantity of ${product.name}`;
+  card.querySelector('[data-decrease-label]').textContent =
+    `Decrease quantity of ${product.name}`;
   card.querySelector('[data-increase-label]').textContent =
     `Increase quantity of ${product.name}`;
   return card;
